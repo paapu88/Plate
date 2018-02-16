@@ -126,7 +126,7 @@ class Classifier():
 
         plt.imshow(rotatedImg, cmap = 'gray', interpolation = 'bicubic')
         plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
-        plt.show()
+        #plt.show()
         return rotatedImg
 
     def preprocess_simple(self):
@@ -199,7 +199,7 @@ class Classifier():
                                  digitsDictionaryFile='digits_logreg.dict'):
         """ By logistic regression: check all plates and in each plate go through every set of 6-rectangles
         give a result for each 6-rectange, for instance ABC-123 """
-        from Image2Characters import __path__ as module_path
+        from Plate import __path__ as module_path
         self.plateStringsProbabilities = []
         # if there are more thatn one candidate for 6-chars, we predict them all...
         for plate in listOfListofRectangles:

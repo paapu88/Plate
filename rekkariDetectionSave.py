@@ -64,7 +64,7 @@ class DetectPlate():
         rectangles = self.cascade.detectMultiScale(self.gray, self.scaleFactor, self.detectFactor, minSize=self.minSize)
         plates = []
         for [x,y,w,h] in rectangles:
-            print("xywh", x,y,w,h)
+            #print("xywhh", x,y,w,h)
             plates.append([x,y,w,h])
         self.plates = plates
 

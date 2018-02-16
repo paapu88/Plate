@@ -34,7 +34,7 @@ __all__ = (
 
 import tensorflow as tf
 
-import common
+import Plate.common as common
 
 
 WINDOW_SHAPE = (64, 128)

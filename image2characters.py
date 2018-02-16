@@ -97,24 +97,22 @@ class image2Characters():
             try:
                 myProb, myChars = zip(*sorted(zip(myProb, myChars)))
                 allChars.append(myChars[::-1])
+                #allChars = allChars + myChars[::-1]
             except:
                 pass
-
 
         if len(plates) == 0:
             # no plate found
             print("no plate found")
             return None
 
-
-
         if len(allChars) == 0:
             # if there are no likely plates
             print ("possible plate found, but no characters assigned")
             return None
         else:
-            print("PLATE(S): ", allChars)
-            app1.showPlates()
+            #print("PLATE(S): ", allChars)
+            #app1.showPlates()
             return allChars
 
     def double_plate(self, whole_img, rect):
@@ -140,6 +138,7 @@ class image2Characters():
         the image is first carefully filtered, so it only contains the actual plate
         """
         from Plate import __path__ as module_path
+        
         app1 = DetectPlate(trainedHaarFileName=module_path[0]+'/rekkari.xml',
                            npImage=self.img)
         detect_exe = module_path[0]+'/detect.py'
@@ -147,8 +146,8 @@ class image2Characters():
         print("PLATES", app1.plates)
         for plate in app1.plates:
             double_plate= self.double_plate(self.img, plate)
-            plt.imshow(double_plate)
-            plt.show()            
+            #plt.imshow(double_plate)
+            #plt.show()            
             cv2.imwrite('double.png', double_plate)
             command = "python3 "+detect_exe+" double.png weights.npz"
             os.system(command)
@@ -158,39 +157,52 @@ class image2Characters():
         get the charcters of a plate by neural network,
         """
         from Plate import __path__ as module_path
+        allChars = []
+        
         app1 = DetectPlate(trainedHaarFileName=module_path[0] + '/rekkari.xml',
                            npImage=self.img)
         app1.image2Plates()  # get rectangles
-        print("PLATES", app1.plates)
+        #print("PLATES", app1.plates)
         app2 = MyDetect()
         for plate in app1.plates:
             double_plate = self.double_plate(self.img, plate)
-            plt.imshow(double_plate)
-            plt.show()
+            #plt.imshow(double_plate)
+            #plt.show()
             app2.setNumpyImage(double_plate)
-            print("NN plate result:", app2.get_result())
+            #print("NN plate result:", app2.get_result())
+            allChars.append( app2.get_result())
+        if not allChars:
+            # if empty list (no plates found) , return none
+            return None
+        else:
+            return allChars 
 
-# python3 image2characters.py /home/mka/Videos/10330101/22480002.MOV
+# cd ~/Python/Plate/Test
+# python3 image2characters.py /home/mka/Videos/10330101/22550005.MOV
 if __name__ == '__main__':
     import sys, glob
-
+    
+    resultNoNN = []  # classical machine learning result
+    resultNN = []    # deep neural network result
     files=glob.glob(sys.argv[1])
     # print(files)
     if len(files)==0:
         raise FileNotFoundError('no files with search term: '+sys.argv[1])
     app = image2Characters()
     for file in files:
+        """
         video2images = VideoIO(videoFileName=file,
                            stride=24,
                            colorChange=cv2.COLOR_RGB2GRAY)
         video2images.readVideoFrames(videoFileName=file)
         for image in video2images.getFrames():
             app.setNumpyImage(image=image)
-            app.getChars()
-            #print("Image, plate(s): ",file, app.getChars())
-            app.getCharsByNeuralNetwork()
+            resultNoNN = resultNoNN + app.getChars()
+            resultNN = resultNN + app.getCharsByNeuralNetwork()
+        """
 
-    #for file in files:
-    #    app.setImageFromFile(file)
-    #    app.getChars()
-    #    app.getCharsByNeuralNetwork()
+        app.setImageFromFile(file)
+        resultNoNN = app.getChars()
+        resultNN = app.getCharsByNeuralNetwork()
+        print("Classical ML result: ", resultNoNN)
+        print("Deep neural network result: ", resultNN)

@@ -12,7 +12,7 @@ import cv2
 import sys
 from matplotlib import pyplot as plt
 import numpy as np
-from Image2Characters.initialCharacterRegions import InitialCharacterRegions
+from Plate.initialCharacterRegions import InitialCharacterRegions
 
 
 class FilterCharacterRegions(InitialCharacterRegions):
