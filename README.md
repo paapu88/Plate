@@ -2,7 +2,8 @@
 
 from an image by haar cascade get plate,
 then from plate get regions (by MSER) ,
-from regions get letters/digits by SVM/logistic regression
+from regions get letters/digits by SVM/logistic regression or
+by neural network
 
 # Usage:
      python3 image2characters.py "filename"
