@@ -8,24 +8,10 @@ from regions get letters/digits by SVM/logistic regression
      python3 image2characters.py "filename"
 
 # NOTE:
-	the path one above current directory (Plate)
-	must be in $PYTHONPATH
+	the path one above current directory (Plate) must be in $PYTHONPATH
 	for neural network you need weight.npz
 
-The flow of the program is defined in image2characters.py.
-It uses modules
-rekkariDetectionSave.py
-- to find a region in the image containing the plate (Haar cascades of opencv)
-filterImage.py
-- to make the image more clear
-filterCharacterRegions.py (inherits from initialCharacterRegions.py)
-- to get list of six-rectangles for possible plete-character regions of the image
-myClassifier.py
-- to detect characters
-
-
-
-Background:
+# Background:
 # Haar cascade description:
 https://archive.ics.uci.edu/ml/datasets/Letter+Recognition
 raw training data in mka@mka-HP:~/PycharmProjects/Rekkari/Training
@@ -43,7 +29,7 @@ Kauppi:~/PycharmProjects/Image2Characters> cp TrainSVM/Letters/SvmDir/allSVM.txt
 Kauppi:~/PycharmProjects/Image2Characters> cp TrainSVM/Digits//SvmDir/logistic.pkl digits_logistic.pkl
 Kauppi:~/PycharmProjects/Image2Characters> cp TrainSVM/Digits//SvmDir/allSVM.txt.dict  digits_logreg.dict
 
-Sphinx:
+# Sphinx:
 sphinx-quickstart
 > autodoc: automatically insert docstrings from modules (y/n) [n]: y
 edit index.rst
