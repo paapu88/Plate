@@ -1,14 +1,16 @@
-# https://github.com/paapu88/Image2Characters.git
+# Plate
+
 from an image by haar cascade get plate,
 then from plate get regions (by MSER) ,
 from regions get letters/digits by SVM/logistic regression
 
-Usage:
+# Usage:
      python3 image2characters.py "filename"
 
-NOTE:
+# NOTE:
 	the path one above current directory (Plate)
 	must be in $PYTHONPATH
+	for neural network you need weight.npz
 
 The flow of the program is defined in image2characters.py.
 It uses modules
