@@ -184,13 +184,16 @@ if __name__ == '__main__':
     
     resultNoNN = []  # classical machine learning result
     resultNN = []    # deep neural network result
+    app = image2Characters()
+
+    """
     files=glob.glob(sys.argv[1])
     # print(files)
     if len(files)==0:
         raise FileNotFoundError('no files with search term: '+sys.argv[1])
-    app = image2Characters()
+    
     for file in files:
-        """
+        
         video2images = VideoIO(videoFileName=file,
                            stride=24,
                            colorChange=cv2.COLOR_RGB2GRAY)
@@ -201,8 +204,8 @@ if __name__ == '__main__':
             resultNN = resultNN + app.getCharsByNeuralNetwork()
         """
 
-        app.setImageFromFile(file)
-        resultNoNN = app.getChars()
-        resultNN = app.getCharsByNeuralNetwork()
-        print("Classical ML result: ", resultNoNN)
-        print("Deep neural network result: ", resultNN)
+    app.setImageFromFile(sys.argv[1])
+    resultNoNN = app.getChars()
+    print("Classical ML result: ", resultNoNN)
+    resultNN = app.getCharsByNeuralNetwork()
+    print("Deep neural network result: ", resultNN)

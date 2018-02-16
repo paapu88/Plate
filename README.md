@@ -4,8 +4,11 @@ then from plate get regions (by MSER) ,
 from regions get letters/digits by SVM/logistic regression
 
 Usage:
-     python3 image2characters.py filename
+     python3 image2characters.py "filename"
 
+NOTE:
+	the path one above current directory (Plate)
+	must be in $PYTHONPATH
 
 The flow of the program is defined in image2characters.py.
 It uses modules
