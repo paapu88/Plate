@@ -23,11 +23,14 @@ from Plate.video2images import VideoIO
 from Plate.myClassifier import Classifier
 from Plate.detect_oneImage import Detect
 from Plate.mydetect import MyDetect
+from valkka_detectors import tools
 import glob
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import os
+
+
 
 class image2Characters():
     """ 
@@ -65,7 +68,9 @@ class image2Characters():
         
 
         allChars = []
-        app1 = DetectPlate(trainedHaarFileName=module_path[0]+'/rekkari.xml',
+        #app1 = DetectPlate(trainedHaarFileName=module_path[0]+'/rekkari.xml',
+        #                   npImage=self.img)
+        app1 = DetectPlate(trainedHaarFileName=tools.getDataFile("rekkari.xml"),
                            npImage=self.img)
 
         plates = app1.getNpPlates()
@@ -139,8 +144,10 @@ class image2Characters():
         """
         from Plate import __path__ as module_path
         
-        app1 = DetectPlate(trainedHaarFileName=module_path[0]+'/rekkari.xml',
-                           npImage=self.img)
+        #app1 = DetectPlate(trainedHaarFileName=module_path[0]+'/rekkari.xml',
+        #                   npImage=self.img)
+        app1 = DetectPlate(trainedHaarFileName=tools.getDataFile("rekkari.xml"),
+                           npImage=self.img)        
         detect_exe = module_path[0]+'/detect.py'
         app1.image2Plates() # get rectangles
         print("PLATES", app1.plates)
@@ -159,8 +166,10 @@ class image2Characters():
         from Plate import __path__ as module_path
         allChars = []
         
-        app1 = DetectPlate(trainedHaarFileName=module_path[0] + '/rekkari.xml',
-                           npImage=self.img)
+        #app1 = DetectPlate(trainedHaarFileName=module_path[0] + '/rekkari.xml',
+        #                   npImage=self.img)
+        app1 = DetectPlate(trainedHaarFileName=tools.getDataFile("rekkari.xml"),
+                           npImage=self.img)        
         app1.image2Plates()  # get rectangles
         #print("PLATES", app1.plates)
         app2 = MyDetect()

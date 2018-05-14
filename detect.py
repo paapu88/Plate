@@ -84,7 +84,9 @@ def detect(im, param_vals):
     x, y, params = model.get_detect_model()
 
     # Execute the model at each scale.
-    with tf.Session(config=tf.ConfigProto()) as sess:
+    config = tf.ConfigProto()
+    #config.gpu_options.per_process_gpu_memory_fraction = 0.9
+    with tf.Session(config=config) as sess:
         y_vals = []
         for scaled_im in scaled_ims:
             feed_dict = {x: numpy.stack([scaled_im])}

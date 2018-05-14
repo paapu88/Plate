@@ -164,7 +164,9 @@ class Detect():
         present_prob=0.0
         xx, yy, params = model.get_detect_model()
         # Execute the model at each scale.
-        with tf.Session(config=tf.ConfigProto()) as sess:
+        config = tf.ConfigProto()
+        #config.gpu_options.per_process_gpu_memory_fraction = 0.9
+        with tf.Session(config=config) as sess:
             y_vals = []
             feed_dict = {xx: np.stack([image])}
             feed_dict.update(dict(zip(params, self.param_vals)))

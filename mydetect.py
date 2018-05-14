@@ -42,8 +42,11 @@ import cv2
 import numpy
 import tensorflow as tf
 
+
 import Plate.common as common
 import Plate.model as model
+from valkka_detectors import tools
+
 CHARS = common.CHARS + '-'
 
 class MyDetect():
@@ -54,7 +57,8 @@ class MyDetect():
         self.img = npImage  # image as numpy array
         if self.img is not None:
             self.img = self.img/255.
-        self.weights = numpy.load(module_path[0]+'/'+weights_file)
+        #self.weights = numpy.load(module_path[0]+'/'+weights_file)
+        self.weights = numpy.load(tools.getDataFile(weights_file)) # neural network
 
     def setNumpyImage(self, image, imageType=None):
         """
@@ -114,7 +118,9 @@ class MyDetect():
         x, y, params = model.get_detect_model()
 
         # Execute the model at each scale.
-        with tf.Session(config=tf.ConfigProto()) as sess:
+        config = tf.ConfigProto()
+        #config.gpu_options.allow_growth = True
+        with tf.Session(config=config) as sess:        
             y_vals = []
             for scaled_im in scaled_ims:
                 feed_dict = {x: numpy.stack([scaled_im])}
