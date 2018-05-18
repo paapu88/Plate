@@ -46,10 +46,17 @@ class image2Characters():
         """
         self.img = image
         if imageType is not None:
-            if "RGB24FrameView" in str(imageType):
-                self.img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
-            else:
-                print ("mok WARNING: color conversion not implemented: ", imageType)
+            try:
+                if "RGB24FrameView" in str(imageType):
+                    self.img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
+                    print("converting RGB -> gray")
+                else:
+                    print ("mok WARNING: color conversion not implemented: ", imageType)
+            except:
+                print ("mok WARNING: color conversion FAILED: ", imageType)
+    
+            #img = cv2.resize(img, (1920//4, 1080//4) )
+        
 
 
     def setImageFromFile(self, imageFileName, colorConversion=cv2.COLOR_BGR2GRAY):
